@@ -4,7 +4,7 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import Notiflix from 'notiflix';
 import GalleryAPI from './js/GalleryAPI';
-import LoadMoreBtn from './js/load-more-btn';
+import LoadMoreBtn from './js/LoadMoreBtn';
 
 const searchFormEL = document.querySelector('#search-form');
 const ulEl = document.querySelector('.gallery');
