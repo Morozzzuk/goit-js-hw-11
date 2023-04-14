@@ -47,7 +47,7 @@ function onSearch(e) {
         endText.classList.add('is-hidden');
         clearGalleryMarkup();
 
-        Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
+        Notiflix.Notify.success(`Wow! We found ${data.totalHits} images.`);
 
         renderImageGallery(data.hits);
         simpleLightbox.refresh();
@@ -84,7 +84,7 @@ function clearGalleryMarkup() {
 
 function onFetchError() {
   Notiflix.Notify.failure(
-    'Sorry, there are no images matching your search query. Please try again.'
+    'Ooops, there are no images matching your search query. Please try again.'
   );
 }
 
