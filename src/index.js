@@ -1,3 +1,4 @@
+//^ Add imports
 // //* Описаний в документації
 import SimpleLightbox from 'simplelightbox';
 // //* Додатковий імпорт стилів
@@ -5,6 +6,8 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import Notiflix from 'notiflix';
 import GalleryAPI from './js/GalleryAPI';
 import LoadMoreBtn from './js/LoadMoreBtn';
+
+//^ Add consts
 
 const searchFormEL = document.querySelector('#search-form');
 const ulEl = document.querySelector('.gallery');
@@ -20,8 +23,12 @@ let simpleLightbox = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
 });
 
+//^ Add EventListener
+
 searchFormEL.addEventListener('submit', onSearch);
 loadMoreBtn.refs.button.addEventListener('click', onLoadMore);
+
+//^Add Functions
 
 function onSearch(e) {
   e.preventDefault();
