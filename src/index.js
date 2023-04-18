@@ -23,7 +23,7 @@ let simpleLightbox = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
 });
 
-//^ Add EventListener
+//^ Add EventListeners
 
 searchFormEL.addEventListener('submit', onSearch);
 loadMoreBtn.refs.button.addEventListener('click', onLoadMore);
