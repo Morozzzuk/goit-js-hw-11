@@ -63,7 +63,7 @@ function onSearch(e) {
         loadMoreBtn.show();
       }
     })
-    .catch(onFetchError)
+    .catch(onError)
     .finally(() => searchFormEL.reset());
 }
 
