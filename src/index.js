@@ -47,7 +47,9 @@ async function onSearch(e) {
   const data = await galleryAPI.getPopularPhotos();
   try {
     if (data.totalHits === 0) {
-        searchFormEl.reset();
+      searchFormEl.reset();
+      clearGalleryMarkup();
+      loadMoreBtn.hide();
       } else {
         endText.classList.add('is-hidden');
         clearGalleryMarkup();
