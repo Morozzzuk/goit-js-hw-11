@@ -30,6 +30,8 @@ loadMoreBtn.refs.button.addEventListener('click', onLoadMore);
 
 //^Add Functions
 
+//^Add Functions
+
 function onSearch(e) {
   e.preventDefault();
 
@@ -38,8 +40,9 @@ function onSearch(e) {
   galleryAPI.resetPage();
 
   if (galleryAPI.searchQuery === '') {
-    NoEmptySearch();
-   
+    Notiflix.Notify.failure(
+      "Sorry, the search string can't be empty. Please try again."
+    );
     searchFormEL.reset();
     return;
   }
@@ -48,10 +51,7 @@ function onSearch(e) {
     .getPopularPhotos()
     .then(data => {
       if (data.totalHits === 0) {
-        onError();
-        clearGalleryMarkup();
-        loadMoreBtn.hide();
-        searchFormEL.reset();
+        onFetchError();
       } else {
         endText.classList.add('is-hidden');
         clearGalleryMarkup();
@@ -63,7 +63,7 @@ function onSearch(e) {
         loadMoreBtn.show();
       }
     })
-    .catch(onError)
+    .catch(onFetchError)
     .finally(() => searchFormEL.reset());
 }
 
@@ -91,13 +91,7 @@ function clearGalleryMarkup() {
   ulEl.innerHTML = '';
 }
 
-function NoEmptySearch() {
-  Notiflix.Notify.failure(
-    'The search string cannot be empty. Please specify your search query.'
-  );
-}
-
-function onError() {
+function onFetchError() {
   Notiflix.Notify.failure(
     'Ooops, there are no images matching your search query. Please try again.'
   );
