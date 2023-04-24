@@ -37,6 +37,9 @@ async function onSearch(e) {
 
   if (galleryAPI.searchQuery === '') {
     NoEmptySearch();
+    clearGalleryMarkup();
+    loadMoreBtn.hide();
+    endText.classList.add('is-hidden');
     searchFormEl.reset();
     return;
   }
