@@ -1,7 +1,5 @@
 //^ Add imports
-// //* Описаний в документації
 import SimpleLightbox from 'simplelightbox';
-// //* Додатковий імпорт стилів
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import Notiflix from 'notiflix';
 import GalleryAPI from './js/GalleryAPI';
@@ -9,8 +7,8 @@ import LoadMoreBtn from './js/LoadMoreBtn';
 
 //^ Add consts
 
-const searchFormEL = document.querySelector('#search-form');
-const ulEl = document.querySelector('.gallery');
+const searchFormEl = document.querySelector('#search-form');
+const ulEL = document.querySelector('.gallery');
 const endText = document.querySelector('.end-text');
 
 const galleryAPI = new GalleryAPI();
@@ -25,10 +23,8 @@ let simpleLightbox = new SimpleLightbox('.gallery a', {
 
 //^ Add EventListeners
 
-searchFormEL.addEventListener('submit', onSearch);
+searchFormEl.addEventListener('submit', onSearch);
 loadMoreBtn.refs.button.addEventListener('click', onLoadMore);
-
-//^Add Functions
 
 //^Add Functions
 
@@ -40,10 +36,8 @@ function onSearch(e) {
   galleryAPI.resetPage();
 
   if (galleryAPI.searchQuery === '') {
-    Notiflix.Notify.failure(
-      "Sorry, the search string can't be empty. Please try again."
-    );
-    searchFormEL.reset();
+    NoEmptySearch();
+    searchFormEl.reset();
     return;
   }
 
@@ -51,7 +45,7 @@ function onSearch(e) {
     .getPopularPhotos()
     .then(data => {
       if (data.totalHits === 0) {
-        onFetchError();
+        searchFormEl.reset();
       } else {
         endText.classList.add('is-hidden');
         clearGalleryMarkup();
@@ -63,8 +57,8 @@ function onSearch(e) {
         loadMoreBtn.show();
       }
     })
-    .catch(onFetchError)
-    .finally(() => searchFormEL.reset());
+    .catch(onError)
+    .finally(() => searchFormEl.reset());
 }
 
 async function onLoadMore() {
@@ -88,12 +82,19 @@ async function onLoadMore() {
 }
 
 function clearGalleryMarkup() {
-  ulEl.innerHTML = '';
+  ulEL.innerHTML = '';
 }
 
-function onFetchError() {
+function NoEmptySearch() {
   Notiflix.Notify.failure(
-    'Ooops, there are no images matching your search query. Please try again.'
+      "Sorry, the search string can't be empty. Please try again."
+    );
+}
+
+function onError() {
+
+  Notiflix.Notify.failure(
+    'Sorry, there are no images matching your search query. Please try again.'
   );
 }
 
@@ -136,5 +137,118 @@ function renderImageGallery(images) {
     )
     .join('');
 
-  ulEl.insertAdjacentHTML('beforeend', markup);
+  ulEL.insertAdjacentHTML('beforeend', markup);
 }
+
+
+
+
+
+
+
+// function onSearch(e) {
+//   e.preventDefault();
+
+//   galleryAPI.searchQuery =
+//     e.currentTarget.elements.searchQuery.value.trim();
+//   galleryAPI.resetPage();
+
+//   if (galleryAPI.searchQuery === '') {
+//     Notiflix.Notify.failure(
+//       "Sorry, the search string can't be empty. Please try again."
+//     );
+//     searchFormEL.reset();
+//     return;
+//   }
+
+//   galleryAPI
+//     .getPopularPhotos()
+//     .then(data => {
+//       if (data.totalHits === 0) {
+//         onFetchError();
+//       } else {
+//         endText.classList.add('is-hidden');
+//         clearGalleryMarkup();
+
+//         Notiflix.Notify.success(`Wow! We found ${data.totalHits} images.`);
+
+//         renderImageGallery(data.hits);
+//         simpleLightbox.refresh();
+//         loadMoreBtn.show();
+//       }
+//     })
+//     .catch(onFetchError)
+//     .finally(() => searchFormEL.reset());
+// }
+
+// async function onLoadMore() {
+//   const data = await galleryAPI.getPopularPhotos();
+//   let totalImages = galleryAPI.perPage * (galleryAPI.page - 1);
+
+//   if (data.totalHits <= totalImages) {
+//     endOfSearch();
+//     renderImageGallery(data.hits);
+//     simpleLightbox.refresh();
+//     loadMoreBtn.hide();
+
+//     endText.classList.remove('is-hidden');
+//   } else {
+//     loadMoreBtn.disable();
+//     renderImageGallery(data.hits);
+
+//     simpleLightbox.refresh();
+//     loadMoreBtn.enable();
+//   }
+// }
+
+// function clearGalleryMarkup() {
+//   ulEl.innerHTML = '';
+// }
+
+// function onFetchError() {
+//   Notiflix.Notify.failure(
+//     'Ooops, there are no images matching your search query. Please try again.'
+//   );
+// }
+
+// function endOfSearch() {
+//   Notiflix.Notify.info(
+//     "We're sorry, but you've reached the end of search results."
+//   );
+// }
+
+// function renderImageGallery(images) {
+//   const markup = images
+//     .map(
+//       ({
+//         largeImageURL,
+//         webformatURL,
+//         tags,
+//         likes,
+//         views,
+//         comments,
+//         downloads,
+//       }) => `<div class="photo-card">
+//         <a class="gallery__item" href=${largeImageURL}>
+//           <img src=${webformatURL} alt=${tags}" loading="lazy" />
+//         </a>
+//         <div class="info">
+//           <p class="info-item">
+//             <b>Likes</b>${likes}
+//           </p>
+//           <p class="info-item">
+//             <b>Views</b>${views}
+//           </p>
+//           <p class="info-item">
+//             <b>Comments</b>${comments}
+//           </p>
+//           <p class="info-item">
+//             <b>Downloads</b>${downloads}
+//           </p>
+//         </div>
+//       </div>`
+//     )
+//     .join('');
+
+//   ulEl.insertAdjacentHTML('beforeend', markup);
+// }
