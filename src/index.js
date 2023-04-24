@@ -49,6 +49,9 @@ function onSearch(e) {
     .then(data => {
       if (data.totalHits === 0) {
         onError();
+        clearGalleryMarkup();
+        loadMoreBtn.hide();
+        searchFormEL.reset();
       } else {
         endText.classList.add('is-hidden');
         clearGalleryMarkup();
