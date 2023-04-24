@@ -38,9 +38,8 @@ function onSearch(e) {
   galleryAPI.resetPage();
 
   if (galleryAPI.searchQuery === '') {
-    Notiflix.Notify.failure(
-      "Sorry, the search string can't be empty. Please try again."
-    );
+    NoEmptySearch();
+   
     searchFormEL.reset();
     return;
   }
@@ -49,7 +48,7 @@ function onSearch(e) {
     .getPopularPhotos()
     .then(data => {
       if (data.totalHits === 0) {
-        onFetchError();
+        onError();
       } else {
         endText.classList.add('is-hidden');
         clearGalleryMarkup();
@@ -89,7 +88,13 @@ function clearGalleryMarkup() {
   ulEl.innerHTML = '';
 }
 
-function onFetchError() {
+function NoEmptySearch() {
+  Notiflix.Notify.failure(
+    'The search string cannot be empty. Please specify your search query.'
+  );
+}
+
+function onError() {
   Notiflix.Notify.failure(
     'Ooops, there are no images matching your search query. Please try again.'
   );
