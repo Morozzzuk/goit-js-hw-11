@@ -42,8 +42,6 @@ async function onSearch(e) {
   }
 
   const data = await galleryAPI.getPopularPhotos();
-    // .getPopularPhotos()
-    // .then(data => {
   try {
     if (data.totalHits === 0) {
         searchFormEl.reset();
@@ -61,9 +59,6 @@ async function onSearch(e) {
     onError();
       }
     }
-    // .catch(onError)
-    // .finally(() => searchFormEl.reset());
-
 
 async function onLoadMore() {
   const data = await galleryAPI.getPopularPhotos();
