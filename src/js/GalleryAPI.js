@@ -13,13 +13,16 @@ export default class GalleryAPI {
     this.perPage = PER_PAGE;
   }
   async getPopularPhotos() {
-    const response = await axios.get(
-      `${BASE_URL}?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${this.page}`
-    );
-    const data = await response.data;
+    const url = `${BASE_URL}?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${this.page}`;
+    const { data } = await axios.get(url);
     this.page += 1;
     return data;
   }
+
+  incrementPage() {
+    this.page += 1;
+  }
+  
   resetPage() {
     this.page = 1;
   }
