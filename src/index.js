@@ -65,7 +65,6 @@ async function onSearch(e) {
       } else {
         loadMoreBtn.show();
       }
-        
   }
   } catch {
     onError();
