@@ -56,9 +56,16 @@ async function onSearch(e) {
 
         Notiflix.Notify.success(`Wow! We found ${data.totalHits} images.`);
 
-        renderImageGallery(data.hits);
-        simpleLightbox.refresh();
+      renderImageGallery(data.hits);
+      simpleLightbox.refresh();
+    
+      if (data.totalHits < galleryAPI.per_page) {
+        loadMoreBtn.hide();
+        return;
+      } else {
         loadMoreBtn.show();
+      }
+        
   }
   } catch {
     onError();

@@ -4,13 +4,12 @@ import axios from 'axios';
 //^Add consts 
 const API_KEY = '35381512-dde9d5be5a6a0ea2b84aeda4e';
 const BASE_URL = 'https://pixabay.com/api/';
-const PER_PAGE = 40;
 
 export default class GalleryAPI {
   constructor() {
     this.searchQuery = '';
     this.page = 1;
-    this.perPage = PER_PAGE;
+    this.per_page = 40;
   }
 
   async getPopularPhotos() {
