@@ -50,6 +50,7 @@ async function onSearch(e) {
       searchFormEl.reset();
       clearGalleryMarkup();
       loadMoreBtn.hide();
+      endText.classList.add('is-hidden');
       } else {
         endText.classList.add('is-hidden');
         clearGalleryMarkup();
