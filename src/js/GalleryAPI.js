@@ -13,10 +13,10 @@ export default class GalleryAPI {
   }
 
   async getPopularPhotos() {
-    const responce = await axios.get(
+    const response = await axios.get(
       `${BASE_URL}?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${this.page}`
     );
-    const data = await responce.data;
+    const data = await response.data;
     this.page += 1;
     return data;
   }

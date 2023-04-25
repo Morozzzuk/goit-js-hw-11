@@ -58,7 +58,6 @@ async function onSearch(e) {
 
       renderImageGallery(data.hits);
       simpleLightbox.refresh();
-    
       if (data.totalHits < galleryAPI.per_page) {
         loadMoreBtn.hide();
         return;
@@ -70,10 +69,10 @@ async function onSearch(e) {
     onError();
       }
     }
-
+console.log(galleryAPI.per_page);
 async function onLoadMore() {
   const data = await galleryAPI.getPopularPhotos();
-  let totalImages = galleryAPI.perPage * (galleryAPI.page - 1);
+  let totalImages = galleryAPI.per_page * (galleryAPI.page - 1);
 
   if (data.totalHits <= totalImages) {
     endOfSearch();
